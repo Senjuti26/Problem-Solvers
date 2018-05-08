@@ -4,21 +4,85 @@
 <head>
 
 	<title>Goonj</title>
-	
+	 <style >
+  	.err
+  	{
+  		display:none;
+  		color:red;
+  	}
+  </style>
 	<link rel="shortcut icon" type="image/x-icon" href="images/goonj.jpg" />
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 	<link rel="stylesheet" type="text/css" href="./css/style_form.css">
 	<script type="text/javascript">
-		function checkPassword(){
-			if(document.getElementById("password").value == document.getElementById("password1").value){
-				return true;
-			}
-			else{
-				document.getElementById("password").style.border="2px solid #ff3300";
-				document.getElementById("password1").style.border="2px solid #ff3300";
-				return false;
-			}
-		}
+		
+   function valid()
+   {
+   	var count=0;
+	 
+   	 var email=document.getElementById('email').value;
+   	  var atpos=email.indexOf("@");
+    var dotpos=email.lastIndexOf(".");
+    if(email=="")
+    {
+      document.getElementById("eemail").style.display="block";
+        document.getElementById("eemail").innerHTML="Enter email value";
+      count++;
+    }
+    else if(atpos<=1 || atpos+2>=dotpos || dotpos+2>email.length-1)
+    {
+     document.getElementById("eemail").style.display="block";
+     document.getElementById("eemail").innerHTML="Enter correct value";
+      count++;
+    }
+    else
+    {
+      document.getElementById("eemail").style.display="none";
+    }
+     var pass=document.getElementById("pass").value;
+     if(pass=="")
+     {
+       document.getElementById("err_pass").style.display="block";
+        document.getElementById("err_pass").innerHTML="Eneter password value";
+        count++;
+     }
+     else if(pass.length<8)
+     {
+     	document.getElementById("err_pass").style.display="block";
+        document.getElementById("err_pass").innerHTML="Eneter atleast of length 8  value";
+        count++;
+     }
+     else if(pass.search(/[A-Z]/)==-1)
+     {
+     	document.getElementById("err_pass").style.display="block";
+        document.getElementById("err_pass").innerHTML="Enter atleast one uppercase  value";
+        count++;
+     }
+     else if(pass.search(/[a-z]/)==-1)
+     {
+     	document.getElementById("err_pass").style.display="block";
+        document.getElementById("err_pass").innerHTML="Enter atleast one LOWERcase  value";
+        count++;
+     }
+     else if(pass.search(/[!\@\#\$\^\&\(\)]/)==-1)
+     {
+     	document.getElementById("err_pass").style.display="block";
+        document.getElementById("err_pass").innerHTML="Enter atleast one special character";
+        count++;
+     }
+     else
+     {
+      document.getElementById("err_pass").style.display="none";
+     }
+    if(count==0)
+    {
+    	return true;
+    }
+    else
+    {
+    	return false;
+    }
+   }
 	</script>
 </head>
 <body>
@@ -50,43 +114,47 @@
 			<div>
 				<div class="login_div">
 					<h3>Login</h3>
-					<form action="./login_check.php" method="post" class="user">
+						<form action="./login_check.php" method="post" class="user">
 						<label>Email Address</label>
-						<input type="email" name="email" required>
+						<input type="email" name="email" id="email1" placeholder="Enter your Email address">
+						
 						<label>Password</label>
-						<input type="password" name="password" required>
-						<input type="submit" value="Login">
+						<input type="password" name="pass" id="pass1"  placeholder="Enter your password">
+						
+						<input type="submit" name="submit" value="Login">
 					</form>
 				</div>
 				<div class="register_div">
 					<h3>Register</h3>
-                		<form action="./registration.php" method="post" onsubmit="return valid()" class="user">
-                						<label>Enter Name</label>
-                						<input type="text" name="name" placeholder="Enter your name" required>
-                						<label>Address</label>
-                						<input type="text" name="address" placeholder="Enter your address" required>
-                						<label>Phone No</label>
-                						<input type="text" name="phno" placeholder="Enter your Phone no" required>
-                						<label>State</label>
-                						<select name="state">
-                                            <option value="">select</option>
-                                            <option value="West Bengal">West            Bengal</option>
-                                        </select>
-                                        <br> 
-                						<label>City</label>
-                						 <select name="city">
-                                            <option value="">select</option>
-                                            <option value="Kolkata">Kolkata        </option>
-                                        </select>
-                                        <br> 
-                                        <label>Email Address</label>
-                                        <input type="email" id="email" name="email" placeholder="Enter your Email address">
-                						 <span id="eemail" class="err"></span><br>
-                                        <label>Password</label>
-                                         <input type="text" id="pass" name="pas" placeholder="Enter your password" >
-                                          <span id="err_pass"  class="err"></span> <br>					
-                                        <input type="submit" id="submit"  value="submit">
-                                       </form>
+					<form action="./registration.php" method="post" onsubmit="return valid()" class="user">
+						<label>Enter Name</label>
+						<input type="text" name="name" placeholder="Enter your name" required>
+						
+						<label>Address</label>
+						<input type="text" name="add" placeholder="Enter your address" required>
+					
+						<label>Phone No</label>
+						<input type="text" name="phno" placeholder="Enter your Phone no" required>
+						
+						<label>State</label>
+						<select name="state" required>
+						<option value=""> Select </option>
+						<option value=""> West bengal </option>
+						</select>
+						<label>City</label>
+						<select  name="city" required>
+						<option value=""> Select </option>
+						<option value=""> Kolkata </option>
+						</select>
+                        <label>Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your Email address">
+						 <span id="eemail" class="err"></span><br>
+                        <label>Password</label>
+                         <input type="text" id="pass" name="pas" placeholder="Enter your password" >
+                          <span id="err_pass"  class="err"></span> <br>					
+                        <input type="submit" id="submit"  value="submit">
+                       </form>
+  	
 				</div>
 			</div>
 	</div>
